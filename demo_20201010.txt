@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+import time
+from selenium import webdriver
+
+
+def test_email_login():
+    name = '18774861242'
+    password = 'owt201314'
+    driver = webdriver.Chrome()
+    driver.get("https://mail.163.com/")
+    driver.maximize_window()
+    time.sleep(3)
+    #绝对定位
+    #iframe = driver.find_element_by_xpath("/html/body/div[2]/div[3]/div/div[3]/div[4]/div[1]/div[1]/iframe[1]")
+    #相对定位-id以xx开头
+    #iframe = driver.find_element_by_xpath('//iframe[starts-with(@id,"x-URS-iframe")]')
+    #相对定位-id包含
+    iframe= driver.find_element_by_xpath('//iframe[contains(@id,"x-URS-iframe")]')
+    driver.switch_to.frame(iframe)
+    email = driver.find_element_by_name('email')
+    email.send_keys(name)
+    time.sleep(1)
+    pwd = driver.find_element_by_name('password')
+    pwd.send_keys(password)
+    submit = driver.find_element_by_id('dologin')
+    submit.click()
+    time.sleep(3)
+    driver.switch_to.default_content()
+    driver.close()
+
+
+if __name__ == '__main__':
+    test_email_login()
